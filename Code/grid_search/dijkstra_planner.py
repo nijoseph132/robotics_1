@@ -51,5 +51,6 @@ class DijkstraPlanner(PlannerBase):
         new_cost = parent_cell.path_cost + self.compute_l_stage_additive_cost(parent_cell, cell)
         if cell.path_cost > new_cost:
             cell.path_cost = new_cost
+            cell.parent = parent_cell
             self.priority_queue.put((cell.path_cost, cell))
 

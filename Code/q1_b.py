@@ -29,8 +29,8 @@ if __name__ == '__main__':
     # Evaluate breadth and depth first algorithms.
     # Check the implementation of the environment
     # to see how the planner type is used.
-    airport_environment = HighLevelEnvironment(airport_map, PlannerType.BREADTH_FIRST)
-    #airport_environment = HighLevelEnvironment(airport_map, PlannerType.DEPTH_FIRST)
+    #airport_environment = HighLevelEnvironment(airport_map, PlannerType.BREADTH_FIRST)
+    airport_environment = HighLevelEnvironment(airport_map, PlannerType.DEPTH_FIRST)
 
     # Set to this to True to generate the search grid and
     # show graphics. If you set this to false, the
