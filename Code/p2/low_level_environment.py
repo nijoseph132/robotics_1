@@ -16,6 +16,7 @@ from generalized_policy_iteration.tabular_value_function import \
 from .low_level_actions import LowLevelActionType
 from .low_level_policy import LowLevelPolicy
 
+import random
 # This environment affords a much lower level control of the robot than the
 # battery environment. It is partially inspired by the AI Gymn Frozen Lake
 # example.
@@ -25,12 +26,15 @@ class LowLevelEnvironment(Env):
     classdocs
     '''
 
-    def __init__(self, airport_map):
+    def __init__(self, airport_map, randomize_obstacles_flag=False, obstacle_probability=0.1):
         '''
         Constructor
         '''
         # Store the map
         self._airport_map = airport_map
+
+        if randomize_obstacles_flag:
+            self.randomize_obstacles(obstacle_probability)
         
         # Direction perturbations
         self._driving_deltas=(
@@ -192,4 +196,12 @@ class LowLevelEnvironment(Env):
             
         return s_prime, r, p
         
+    def randomize_obstacles(self, obstacle_probability=0.025):
+        for x in range(self._airport_map.width()):
+            for y in range(self._airport_map.height()):
+                cell = self._airport_map.cell(x, y)
+                # Do not randomize terminal cells
+                if not cell.is_terminal():
+                    if random.random() < obstacle_probability:
+                        cell.set_cell_type(MapCellType.BAGGAGE_CLAIM)
  
