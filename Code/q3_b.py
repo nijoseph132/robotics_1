@@ -30,6 +30,8 @@ if __name__ == '__main__':
     # Set up initial state
     policy_solver.initialize()
     
+    # set gamma
+    policy_solver.set_gamma(0.95)
     # We only do 10 policy evaluation steps per iteration
     policy_solver.set_max_policy_evaluation_steps_per_iteration(10)
             
@@ -44,5 +46,8 @@ if __name__ == '__main__':
         policy_solver.evaluate_policy()
         value_function_drawer.update()
      
+
+    name = f"gamma_results{1}.pdf"
+    value_function_drawer.save_screenshot(name)
     # Wait for a final key press
     value_function_drawer.wait_for_key_press()

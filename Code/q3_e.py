@@ -12,44 +12,57 @@ from generalized_policy_iteration.value_function_drawer import \
     ValueFunctionDrawer
 from p2.low_level_environment import LowLevelEnvironment
 from p2.low_level_policy_drawer import LowLevelPolicyDrawer
+import time 
 
-if __name__ == '__main__':
-    
-    # Get the map for the scenario
-    #airport_map, drawer_height = three_row_scenario()
+def run_policy_iteration(theta, max_eval_steps):
+    # Get the full scenario map.
     airport_map, drawer_height = full_scenario()
     
-    # Set up the environment for the robot driving around
+    # Set up the environment.
     airport_environment = LowLevelEnvironment(airport_map)
+    airport_environment.set_nominal_direction_probability(0.8)
     
-    # Configure the process model
-    airport_environment.set_nominal_direction_probability(1)
-
-    # Create the policy iterator
+    # Create & configure the policy iterator.
     policy_solver = PolicyIterator(airport_environment)
-
-    # Q3e:
-    # Investigate different parameters
-    
-    # Values you can change:
-    #policy_solver.set_theta(1)
-    #policy_solver.set_max_policy_evaluation_steps_per_iteration(10)
-
-    # Set up initial state
+    policy_solver.set_theta(theta)
+    policy_solver.set_max_policy_evaluation_steps_per_iteration(max_eval_steps)
     policy_solver.initialize()
-        
-    # Bind the drawer with the solver
-    policy_drawer = LowLevelPolicyDrawer(policy_solver.policy(), drawer_height)
-    policy_solver.set_policy_drawer(policy_drawer)
     
-    value_function_drawer = ValueFunctionDrawer(policy_solver.value_function(), drawer_height)
-    policy_solver.set_value_function_drawer(value_function_drawer)
-        
-    # Compute the solution
-    v, pi = policy_solver.solve_policy()
+    # Solve the policy iteration while measuring runtime.
+    start_time = time.time()
+    policy_solver.solve_policy()
+    runtime = time.time() - start_time
     
-    # Save screen shot; this is in the current directory
-    policy_drawer.save_screenshot("policy_iteration_results.jpg")
+    eval_iters = policy_solver._policy_eval_iterations
+    improve_iters = policy_solver._policy_improve_iterations
     
-    # Wait for a key press
-    value_function_drawer.wait_for_key_press()
+    return runtime, eval_iters, improve_iters, drawer_height
+
+def main():
+    # Parameter settings to explore:
+    theta_values = [0.1, 0.5, 1, 5, 10]      
+    max_eval_steps_values = [5, 10, 20, 50, 500] 
+    
+    results = []
+    for theta in theta_values:
+        for max_eval in max_eval_steps_values:
+            runtime, eval_iters, improve_iters, _ = run_policy_iteration(theta, max_eval)
+            results.append((theta, max_eval, runtime, eval_iters, improve_iters))
+    
+    # print into latex table for rep
+    print(r"\begin{table}[htbp]")
+    print(r"\centering")
+    print(r"\begin{tabular}{l l l l l}")
+    print(r"\hline")
+    print(r"Theta & Max Eval Steps & Runtime (sec) & Policy Eval Iters & Policy Improve Iters \\")
+    print(r"\hline")
+    for theta, max_eval, runtime, eval_iters, improve_iters in results:
+        print(f"{theta} & {max_eval} & {runtime:.3f} & {eval_iters} & {improve_iters} \\\\")
+    print(r"\hline")
+    print(r"\end{tabular}")
+    print(r"\caption{Policy iteration evaluation results for various $\theta$ values and maximum evaluation steps.}")
+    print(r"\label{tab:policy_iteration_results}")
+    print(r"\end{table}")
+    
+if __name__ == '__main__':
+    main()

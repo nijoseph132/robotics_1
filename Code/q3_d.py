@@ -23,30 +23,35 @@ if __name__ == '__main__':
     
     # Q3d:
     # Configure the process model using different probabilities
-    airport_environment.set_nominal_direction_probability(1)
+    # list of p values
+    p_values = [1, 0.9, 0.6, 0.3]
+    for p in p_values:
+        airport_environment.set_nominal_direction_probability(p)
 
-    # Note that you can create multiple instances of the same object, with different
-    # settings, and run them in the same programme. Therefore, you do not need to
-    # create lots of separate scripts to run the code.
+        # Note that you can create multiple instances of the same object, with different
+        # settings, and run them in the same programme. Therefore, you do not need to
+        # create lots of separate scripts to run the code.
 
-    # Create the policy iterator
-    policy_solver = PolicyIterator(airport_environment)
+        # Create the policy iterator
+        policy_solver = PolicyIterator(airport_environment)
 
-    # Set up initial state
-    policy_solver.initialize()
+        # Set up initial state
+        policy_solver.initialize()
+            
+        # Bind the drawer with the solver
+        policy_drawer = LowLevelPolicyDrawer(policy_solver.policy(), drawer_height)
+        policy_solver.set_policy_drawer(policy_drawer)
         
-    # Bind the drawer with the solver
-    policy_drawer = LowLevelPolicyDrawer(policy_solver.policy(), drawer_height)
-    policy_solver.set_policy_drawer(policy_drawer)
-    
-    value_function_drawer = ValueFunctionDrawer(policy_solver.value_function(), drawer_height)
-    policy_solver.set_value_function_drawer(value_function_drawer)
+        value_function_drawer = ValueFunctionDrawer(policy_solver.value_function(), drawer_height)
+        policy_solver.set_value_function_drawer(value_function_drawer)
+            
+        # Compute the solution
+        v, pi = policy_solver.solve_policy()
+
+        policy_filename = f"policy_iteration_results_p_{p}.pdf"
+        policy_drawer.save_screenshot(policy_filename)
+        value_function_filename = f"value_function_iteration_results_p_{p}.pdf"
+        value_function_drawer.save_screenshot(value_function_filename)
         
-    # Compute the solution
-    v, pi = policy_solver.solve_policy()
-    
-    # Save screen shot; this is in the current directory
-    policy_drawer.save_screenshot("policy_iteration_results.jpg")
-    
-    # Wait for a key press
-    value_function_drawer.wait_for_key_press()
+        # Wait for a key press
+        #value_function_drawer.wait_for_key_press()
