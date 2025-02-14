@@ -24,6 +24,10 @@ class PolicyIterator(DynamicProgrammingBase):
         # The maximum number of times the policy evaluation iteration
         # is carried out.
         self._max_policy_iteration_steps = 1000
+
+        # For statistics: counters for evaluation and improvement iterations.
+        self._policy_eval_iterations = 0
+        self._policy_improve_iterations = 0
         
 
     # Perform policy evaluation for the current policy, and return
@@ -48,6 +52,8 @@ class PolicyIterator(DynamicProgrammingBase):
         # Reset termination indicators       
         policy_iteration_step = 0        
         policy_stable = False
+        self._policy_eval_iterations = 0
+        self._policy_improve_iterations = 0
         
         # Loop until either the policy converges or we ran out of steps        
         while (policy_stable is False) and \
@@ -55,6 +61,7 @@ class PolicyIterator(DynamicProgrammingBase):
             
             # Evaluate the policy
             self._evaluate_policy()
+            self._policy_eval_iterations += 1
 
             # Improve the policy            
             policy_stable = self._improve_policy()
@@ -67,6 +74,7 @@ class PolicyIterator(DynamicProgrammingBase):
                 self._value_drawer.update()
                 
             policy_iteration_step += 1
+            self._policy_improve_iterations += 1
 
         # Draw one last time to clear any transients which might
         # draw changes
@@ -156,6 +164,35 @@ class PolicyIterator(DynamicProgrammingBase):
         map = environment.map()
 
         policy_stable = True
+
+        for x in range(map.width()):
+            for y in range(map.height()):
+        
+                if map.cell(x, y).is_obstruction() or map.cell(x, y).is_terminal():
+                    continue
+
+                current_state = (x, y)
+                old_action = self._pi.action(x, y)
+
+                max_q_value = float('-inf')
+                best_action = None
+                
+                # compute values fot each action; take best one
+                for action in range(environment.available_actions().n):
+                    s_prime, r, p = environment.next_state_and_reward_distribution(current_state, action)
+                    q_value = 0
+                    for t in range(len(p)):
+                        sc = s_prime[t].coords()
+                        q_value = q_value + p[t] * (r[t] + self._gamma * self._v.value(sc[0], sc[1]))
+
+                    if q_value > max_q_value:
+                        max_q_value = q_value
+                        best_action = action
+                
+                self._pi.set_action(x, y, best_action)
+
+                if old_action != best_action:
+                    policy_stable = False
 
         # Return true if the policy is stable (=isn't changing)     
         return policy_stable
