@@ -175,10 +175,10 @@ class PolicyIterator(DynamicProgrammingBase):
                 old_action = self._pi.action(x, y)
 
                 max_q_value = float('-inf')
-                best_action = None
+                best_action = old_action
                 
                 # compute values fot each action; take best one
-                for action in range(environment.available_actions().n):
+                for action in range(environment.action_space.n):
                     s_prime, r, p = environment.next_state_and_reward_distribution(current_state, action)
                     q_value = 0
                     for t in range(len(p)):

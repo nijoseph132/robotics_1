@@ -15,6 +15,7 @@ if __name__ == '__main__':
     
     # Create the scenario
     airport_map, drawer_height = full_scenario()
+    airport_map.set_use_cell_type_traversability_costs(True)
 
     print(airport_map)
     
