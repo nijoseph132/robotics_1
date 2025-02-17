@@ -21,8 +21,8 @@ class PolicyIterator(DynamicProgrammingBase):
         self._max_policy_evaluation_steps_per_iteration = 100
         
         
-        # The maximum number of times the policy evaluation iteration
-        # is carried out.
+        # The maximum number of times the policy evaluation and improvement 
+        # outer loop is carried out.
         self._max_policy_iteration_steps = 1000
 
         # For statistics: counters for evaluation and improvement iterations.
@@ -58,7 +58,9 @@ class PolicyIterator(DynamicProgrammingBase):
         # Loop until either the policy converges or we ran out of steps        
         while (policy_stable is False) and \
             (policy_iteration_step < self._max_policy_iteration_steps):
-            
+            print("THIS IS THE", policy_iteration_step, "STEP OVERALL")
+
+
             # Evaluate the policy
             self._evaluate_policy()
             self._policy_eval_iterations += 1
@@ -177,7 +179,7 @@ class PolicyIterator(DynamicProgrammingBase):
                 max_q_value = float('-inf')
                 best_action = old_action
                 
-                # compute values fot each action; take best one
+                # compute values for each action; take best one
                 for action in range(environment.action_space.n):
                     s_prime, r, p = environment.next_state_and_reward_distribution(current_state, action)
                     q_value = 0

@@ -27,6 +27,13 @@ def run_policy_iteration(theta, max_eval_steps):
     policy_solver.set_theta(theta)
     policy_solver.set_max_policy_evaluation_steps_per_iteration(max_eval_steps)
     policy_solver.initialize()
+
+    # Bind the drawer with the solver
+    policy_drawer = LowLevelPolicyDrawer(policy_solver.policy(), drawer_height)
+    policy_solver.set_policy_drawer(policy_drawer)
+    
+    value_function_drawer = ValueFunctionDrawer(policy_solver.value_function(), drawer_height)
+    policy_solver.set_value_function_drawer(value_function_drawer)
     
     # Solve the policy iteration while measuring runtime.
     start_time = time.time()
@@ -41,13 +48,17 @@ def run_policy_iteration(theta, max_eval_steps):
 def main():
     # Parameter settings to explore:
     theta_values = [0.1, 0.5, 1, 5, 10]      
-    max_eval_steps_values = [5, 10, 20, 50, 500] 
+    max_eval_steps_values = [5, 10, 20, 50, 500]
+
+    # theta_values = [0.01]      
+    # max_eval_steps_values = [50] 
     
     results = []
     for theta in theta_values:
         for max_eval in max_eval_steps_values:
             runtime, eval_iters, improve_iters, _ = run_policy_iteration(theta, max_eval)
             results.append((theta, max_eval, runtime, eval_iters, improve_iters))
+            print("FINISHED. THETA", theta, "MAX_EVAL", max_eval, "ITER:", eval_iters)
     
     # print into latex table for rep
     print(r"\begin{table}[htbp]")

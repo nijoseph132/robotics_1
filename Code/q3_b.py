@@ -45,7 +45,6 @@ if __name__ == '__main__':
     for steps in range(1000):
         policy_solver.evaluate_policy()
         value_function_drawer.update()
-     
 
     name = f"gamma_results{1}.pdf"
     value_function_drawer.save_screenshot(name)

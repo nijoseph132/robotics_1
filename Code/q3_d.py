@@ -25,6 +25,7 @@ if __name__ == '__main__':
     # Configure the process model using different probabilities
     # list of p values
     p_values = [1, 0.9, 0.6, 0.3]
+
     for p in p_values:
         airport_environment.set_nominal_direction_probability(p)
 
