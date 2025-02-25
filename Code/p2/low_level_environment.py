@@ -204,4 +204,8 @@ class LowLevelEnvironment(Env):
                 if not cell.is_terminal():
                     if random.random() < obstacle_probability:
                         cell.set_cell_type(MapCellType.BAGGAGE_CLAIM)
- 
+    
+    def actions(self, state):
+        if self._airport_map.cell(state[0], state[1]).is_obstruction() or self._airport_map.cell(state[0], state[1]).is_terminal():
+            return []
+        return range(self.action_space.n)

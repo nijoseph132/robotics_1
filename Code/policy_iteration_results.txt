@@ -1,0 +1,245 @@
+Parameters:
+Theta=1e+01, eval_steps=1
+Time: 12.969s
+Total evaluation steps: 95
+Similarity to baseline: 0.9392
+--------------------------------------------------
+
+Parameters:
+Theta=1e+01, eval_steps=3
+Time: 13.921s
+Total evaluation steps: 117
+Similarity to baseline: 0.8462
+--------------------------------------------------
+
+Parameters:
+Theta=1e+01, eval_steps=5
+Time: 13.650s
+Total evaluation steps: 117
+Similarity to baseline: 0.8367
+--------------------------------------------------
+
+Parameters:
+Theta=1e+01, eval_steps=10
+Time: 13.800s
+Total evaluation steps: 124
+Similarity to baseline: 0.8594
+--------------------------------------------------
+
+Parameters:
+Theta=1e+01, eval_steps=20
+Time: 14.002s
+Total evaluation steps: 140
+Similarity to baseline: 0.8424
+--------------------------------------------------
+
+Parameters:
+Theta=1e+01, eval_steps=50
+Time: 14.092s
+Total evaluation steps: 140
+Similarity to baseline: 0.8424
+--------------------------------------------------
+
+Parameters:
+Theta=1e+01, eval_steps=100
+Time: 14.078s
+Total evaluation steps: 140
+Similarity to baseline: 0.8424
+--------------------------------------------------
+
+Parameters:
+Theta=1e+00, eval_steps=1
+Time: 13.231s
+Total evaluation steps: 95
+Similarity to baseline: 0.9392
+--------------------------------------------------
+
+Parameters:
+Theta=1e+00, eval_steps=3
+Time: 14.029s
+Total evaluation steps: 137
+Similarity to baseline: 0.8965
+--------------------------------------------------
+
+Parameters:
+Theta=1e+00, eval_steps=5
+Time: 14.241s
+Total evaluation steps: 151
+Similarity to baseline: 0.8452
+--------------------------------------------------
+
+Parameters:
+Theta=1e+00, eval_steps=10
+Time: 16.309s
+Total evaluation steps: 172
+Similarity to baseline: 0.8471
+--------------------------------------------------
+
+Parameters:
+Theta=1e+00, eval_steps=20
+Time: 16.523s
+Total evaluation steps: 192
+Similarity to baseline: 0.8234
+--------------------------------------------------
+
+Parameters:
+Theta=1e+00, eval_steps=50
+Time: 19.949s
+Total evaluation steps: 214
+Similarity to baseline: 0.8528
+--------------------------------------------------
+
+Parameters:
+Theta=1e+00, eval_steps=100
+Time: 16.359s
+Total evaluation steps: 214
+Similarity to baseline: 0.8528
+--------------------------------------------------
+
+Parameters:
+Theta=1e-01, eval_steps=1
+Time: 13.926s
+Total evaluation steps: 95
+Similarity to baseline: 0.9392
+--------------------------------------------------
+
+Parameters:
+Theta=1e-01, eval_steps=3
+Time: 15.323s
+Total evaluation steps: 146
+Similarity to baseline: 0.8974
+--------------------------------------------------
+
+Parameters:
+Theta=1e-01, eval_steps=5
+Time: 17.653s
+Total evaluation steps: 175
+Similarity to baseline: 0.8822
+--------------------------------------------------
+
+Parameters:
+Theta=1e-01, eval_steps=10
+Time: 17.362s
+Total evaluation steps: 227
+Similarity to baseline: 0.8376
+--------------------------------------------------
+
+Parameters:
+Theta=1e-01, eval_steps=20
+Time: 17.355s
+Total evaluation steps: 250
+Similarity to baseline: 0.8234
+--------------------------------------------------
+
+Parameters:
+Theta=1e-01, eval_steps=50
+Time: 19.580s
+Total evaluation steps: 307
+Similarity to baseline: 0.8642
+--------------------------------------------------
+
+Parameters:
+Theta=1e-01, eval_steps=100
+Time: 20.820s
+Total evaluation steps: 312
+Similarity to baseline: 0.8680
+--------------------------------------------------
+
+Parameters:
+Theta=1e-03, eval_steps=1
+Time: 15.683s
+Total evaluation steps: 95
+Similarity to baseline: 0.9392
+--------------------------------------------------
+
+Parameters:
+Theta=1e-03, eval_steps=3
+Time: 17.153s
+Total evaluation steps: 165
+Similarity to baseline: 0.8860
+--------------------------------------------------
+
+Parameters:
+Theta=1e-03, eval_steps=5
+Time: 17.444s
+Total evaluation steps: 206
+Similarity to baseline: 0.8822
+--------------------------------------------------
+
+Parameters:
+Theta=1e-03, eval_steps=10
+Time: 20.979s
+Total evaluation steps: 268
+Similarity to baseline: 0.8575
+--------------------------------------------------
+
+Parameters:
+Theta=1e-03, eval_steps=20
+Time: 20.753s
+Total evaluation steps: 323
+Similarity to baseline: 0.9829
+--------------------------------------------------
+
+Parameters:
+Theta=1e-03, eval_steps=50
+Time: 13.669s
+Total evaluation steps: 462
+Similarity to baseline: 0.9991
+--------------------------------------------------
+
+Parameters:
+Theta=1e-03, eval_steps=100
+Time: 14.348s
+Total evaluation steps: 630
+Similarity to baseline: 1.0000
+--------------------------------------------------
+
+Parameters:
+Theta=1e-06, eval_steps=1
+Time: 15.814s
+Total evaluation steps: 95
+Similarity to baseline: 0.9392
+--------------------------------------------------
+
+Parameters:
+Theta=1e-06, eval_steps=3
+Time: 18.965s
+Total evaluation steps: 209
+Similarity to baseline: 0.8927
+--------------------------------------------------
+
+Parameters:
+Theta=1e-06, eval_steps=5
+Time: 19.609s
+Total evaluation steps: 248
+Similarity to baseline: 0.8841
+--------------------------------------------------
+
+Parameters:
+Theta=1e-06, eval_steps=10
+Time: 15.010s
+Total evaluation steps: 329
+Similarity to baseline: 0.9307
+--------------------------------------------------
+
+Parameters:
+Theta=1e-06, eval_steps=20
+Time: 12.023s
+Total evaluation steps: 442
+Similarity to baseline: 0.9972
+--------------------------------------------------
+
+Parameters:
+Theta=1e-06, eval_steps=50
+Time: 18.262s
+Total evaluation steps: 843
+Similarity to baseline: 0.9991
+--------------------------------------------------
+
+Parameters:
+Theta=1e-06, eval_steps=100
+Time: 21.868s
+Total evaluation steps: 1171
+Similarity to baseline: 1.0000
+--------------------------------------------------
+
