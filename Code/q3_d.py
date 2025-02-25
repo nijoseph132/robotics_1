@@ -55,4 +55,4 @@ if __name__ == '__main__':
         value_function_drawer.save_screenshot(value_function_filename)
         
         # Wait for a key press
-        #value_function_drawer.wait_for_key_press()
+        value_function_drawer.wait_for_key_press()
