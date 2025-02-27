@@ -265,7 +265,6 @@ def create_scatter_plot(df, x_col, y_col, x_label, y_label, title, palette, ax):
 
 
 def create_heatmap(df, value_col, cmap, title, ax):
-    """Create a heatmap on the given axis."""
     pivot_table = df.pivot_table(index='theta', columns='eval_steps', values=value_col)
     fmt = ".3f" if value_col == 'similarity' else ".2f"
     sns.heatmap(pivot_table, cmap=cmap, annot=True, fmt=fmt, ax=ax)
