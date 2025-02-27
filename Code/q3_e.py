@@ -119,7 +119,6 @@ def setup_directories():
 
 
 def initialize_text_log():
-    """Initialize the text log file by clearing it if it exists."""
     if os.path.exists(TEXT_LOG_FILE):
         with open(TEXT_LOG_FILE, 'w'):
             pass 
