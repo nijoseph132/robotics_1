@@ -26,7 +26,6 @@ class PolicyIterator(DynamicProgrammingBase):
         self._max_policy_iteration_steps = 1000
         
         # tracking variables
-        self._last_delta = float('inf')
         # number of times policy iteration is run
         self._total_iterations = 0
         # number of times policy is improved
@@ -144,9 +143,7 @@ class PolicyIterator(DynamicProgrammingBase):
                     # Update the maximum deviation
                     delta = max(delta, abs(old_v-new_v))
  
-            # Store the last delta value
-            self._last_delta = delta
-
+            # increment state space sweeps
             self._state_space_sweeps += 1
 
             
@@ -167,18 +164,19 @@ class PolicyIterator(DynamicProgrammingBase):
     def _improve_policy(self) -> bool:
         # Q3_c:
         # Implement the policy improvement step.
-        # In this step, we update the policy by choosing, for each state, the action that
-        # maximizes the expected return (i.e., the Q-value). This is based on the action value
-        # function Q(s,a) = sum_{s'} P(s',r|s,a)[r + gamma * V(s')], as covered in Lecture 07.
 
+        # for each state, we iterate over all possible actions and compute the Q-value for each:
+        # Q(s,a) = sum_{s'} P(s',r|s,a)[r + gamma * V(s')] as seen in lecture
+        # in each state, the action that maximizes the Q-value is chosen as the new policy
+        
         # Get the environment and map.
         environment = self._environment
         map = environment.map()
 
-        # Assume the policy is stable until we find a state where it can be improved.
+        # assume policy is initially stable
         policy_stable = True
 
-        # Iterate over every state (cell) in the map.
+        # Loop over all states
         for x in range(map.width()):
             for y in range(map.height()):
                 # Skip cells that are obstructions or terminal, as no action is taken there.
@@ -196,7 +194,7 @@ class PolicyIterator(DynamicProgrammingBase):
                 best_q_value = float('-inf')
                 
                 # iterate over all possible actions
-                for action in environment.actions(cell):
+                for action in environment.get_actions(cell):
                     # get next state and reward distribution
                     s_prime, r, p = environment.next_state_and_reward_distribution(cell, action)
                     
@@ -227,13 +225,7 @@ class PolicyIterator(DynamicProgrammingBase):
 
 
     def set_max_policy_iteration_steps(self, max_policy_iteration_steps):
-        self._max_policy_iteration_steps = max_policy_iteration_steps
-        
-    def get_max_policy_iteration_steps(self):
-        return self._max_policy_iteration_steps         
-                
-    def get_last_delta(self):
-        return self._last_delta
+        self._max_policy_iteration_steps = max_policy_iteration_steps   
 
     def get_total_iterations(self):
         return self._total_iterations

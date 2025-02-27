@@ -69,7 +69,7 @@ class ValueIterator(DynamicProgrammingBase):
                     old_value = self._v.value(x, y)
                     best_value = float('-inf')
                     # loop over all available actions.
-                    for action in environment.actions(cell):
+                    for action in environment.get_actions(cell):
                         s_primes, rewards, probs = environment.next_state_and_reward_distribution((x, y), action)
                         q_value = 0.0
                         # accumulate the expected reward for this action.
@@ -98,7 +98,7 @@ class ValueIterator(DynamicProgrammingBase):
                 cell = (x, y)
                 best_action = None
                 best_q_value = float('-inf')
-                for action in environment.actions(cell):
+                for action in environment.get_actions(cell):
                     s_primes, rewards, probs = environment.next_state_and_reward_distribution((x, y), action)
                     q_value = 0.0
                     for i in range(len(probs)):

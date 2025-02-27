@@ -54,30 +54,30 @@ def compare_policies(optimal_policy, current_policy):
 
 
 def get_optimal_policy():
-    # either compute or load optimal policy
-    baseline_pickle_path = os.path.join(RESULTS_DIR, 'baseline_policy.pkl')
-    if os.path.exists(baseline_pickle_path):
-        print("Loading cached baseline policy...")
-        with open(baseline_pickle_path, 'rb') as pkl_file:
-            baseline_data = pickle.load(pkl_file)
-            baseline_result = baseline_data['result']
-            baseline_policy = baseline_result['policy']
+    # either compute or load optimal policy- used to compare to other policies
+    optimal_pickle_path = os.path.join(RESULTS_DIR, 'optimal_policy.pkl')
+    if os.path.exists(optimal_pickle_path):
+        print("Loading cached optimal policy...")
+        with open(optimal_pickle_path, 'rb') as pkl_file:
+            optimal_data = pickle.load(pkl_file)
+            optimal_result = optimal_data['result']
+            optimal_policy = optimal_result['policy']
     else:
-        print("Computing new baseline policy with strict parameters (theta=1e-6, eval_steps=10,000)...")
-        strict_baseline_theta = 1e-6
-        strict_baseline_eval_steps = 10000
-        baseline_result = run_policy_evaluation_test(strict_baseline_theta, strict_baseline_eval_steps)
-        baseline_policy = baseline_result['policy']
+        print("Computing new optimal policy with strict parameters (theta=1e-6, eval_steps=10,000)...")
+        strict_theta = 1e-6
+        strict_eval_steps = 10000
+        optimal_result = run_policy_evaluation_test(strict_theta, strict_eval_steps)
+        optimal_policy = optimal_result['policy']
         # cache
-        with open(baseline_pickle_path, 'wb') as pkl_file:
+        with open(optimal_pickle_path, 'wb') as pkl_file:
             pickle.dump({
-                'result': baseline_result,
+                'result': optimal_result,
                 'parameters': {
-                    'theta': strict_baseline_theta,
-                    'eval_steps': strict_baseline_eval_steps,
+                    'theta': strict_theta,
+                    'eval_steps': strict_eval_steps,
                 }
             }, pkl_file)
-    return baseline_policy
+    return optimal_policy
 
 
 def run_policy_evaluation_test(theta, eval_steps):
@@ -125,26 +125,26 @@ def initialize_text_log():
             pass 
 
 
-def run_parameter_grid_search(thetas, eval_steps_list, baseline_policy):
-    """Add baseline_policy parameter and similarity calculations"""
+def run_parameter_grid_search(thetas, eval_steps_list, optimal_policy):
     results = []
     
     for theta in thetas:
         for e_steps in eval_steps_list:
-            # Create param-specific pickle name
+            # Create param-specific pickle name; if we computed beforem, load cached results
             param_filename = f"policy_iter_t{theta:.0e}_e{e_steps}.pkl"
             pickle_path = os.path.join(RESULTS_DIR, param_filename)
-
+            # check cache for hit
             if os.path.exists(pickle_path):
                 print(f"Loading cached results for θ={theta:.0e}, eval_steps={e_steps}")
                 with open(pickle_path, 'rb') as pkl_file:
                     cached_data = pickle.load(pkl_file)
                     result = cached_data['result']
                     similarity = cached_data.get('similarity', 0.0) 
+            # otherwise, compute new results
             else:
                 print(f"Testing θ={theta:.0e}, eval_steps={e_steps}")
                 result = run_policy_evaluation_test(theta, e_steps)
-                similarity = compare_policies(baseline_policy, result['policy'])
+                similarity = compare_policies(optimal_policy, result['policy'])
 
                 with open(pickle_path, 'wb') as pkl_file:
                     pickle.dump({
@@ -152,6 +152,7 @@ def run_parameter_grid_search(thetas, eval_steps_list, baseline_policy):
                         'similarity': similarity
                     }, pkl_file)
 
+            # record results for params
             results.append({
                 'theta': theta,
                 'eval_steps': e_steps,
@@ -161,7 +162,6 @@ def run_parameter_grid_search(thetas, eval_steps_list, baseline_policy):
                 'similarity': similarity
             })
 
-            # Update log function to include similarity
             log_result_to_text_file(theta, e_steps, result, similarity)
             
             print(f"Time: {result['time']:.3f}s, "
@@ -172,7 +172,7 @@ def run_parameter_grid_search(thetas, eval_steps_list, baseline_policy):
             
     return results
 
-
+# log results to text file
 def log_result_to_text_file(theta, eval_steps, result, similarity):
     with open(TEXT_LOG_FILE, 'a') as f:
         f.write(f"Parameters:\n")
@@ -180,17 +180,17 @@ def log_result_to_text_file(theta, eval_steps, result, similarity):
         f.write(f"  Time: {result['time']:.3f}s\n")
         f.write(f"  Total evaluation sweeps: {result['total_evaluation_steps']}\n")
         f.write(f"  Outer policy iterations: {result['outer_iterations']}\n")
-        f.write(f"  Similarity to baseline: {similarity:.4f}\n")
+        f.write(f"  Similarity to optimal policy: {similarity:.4f}\n")
         f.write("-" * 50 + "\n\n")
 
 
-def save_final_results(results, thetas, eval_steps_list, baseline_policy):
+def save_final_results(results, thetas, eval_steps_list, optimal_policy):
     # Save pickle with all results and parameters
     final_pickle_path = os.path.join(RESULTS_DIR, 'policy_iteration_results.pkl')
     with open(final_pickle_path, 'wb') as pkl_file:
         pickle.dump({
             'results': results,
-            'baseline_policy': baseline_policy,
+            'optimal_policy': optimal_policy,
             'parameters': {
                 'thetas': thetas,
                 'eval_steps': eval_steps_list,
@@ -200,13 +200,12 @@ def save_final_results(results, thetas, eval_steps_list, baseline_policy):
     # convert results to DataFrame and save as CSV
     df = pd.DataFrame(results)
     df.to_csv(CSV_OUTPUT_PATH, index=False)
-    print(f"Logged raw results to {CSV_OUTPUT_PATH}")
+    print(f"Logged results to {CSV_OUTPUT_PATH}")
     
     return df
 
 
 def generate_latex_table(results):
-    """Modified to include similarity column"""
     with open(LATEX_TABLE_PATH, 'w') as f:
         f.write("\\begin{table}[htbp]\n")
         f.write("\\centering\n")
@@ -221,7 +220,7 @@ def generate_latex_table(results):
 
         f.write("\\hline\n")
         f.write("\\end{tabular}\n")
-        f.write("\\caption{Results across different $\theta$ and eval\_steps, measuring time, total evaluation steps, policy iterations, and similarity to baseline.}\n")
+        f.write("\\caption{Results across different $\theta$ and eval\_steps, measuring time, total evaluation steps, policy iterations, and similarity to optimal.}\n")
         f.write("\\label{tab:theta_evalsteps_results}\n")
         f.write("\\end{table}\n")
 
@@ -254,8 +253,6 @@ def create_analysis_plots(df):
     plt.savefig(scatter_path_pdf)
     print(f"Saved scatter plot to {scatter_path_png}")
     
-    plt.show()
-
 def create_scatter_plot(df, x_col, y_col, x_label, y_label, title, palette, ax):
     """Create a scatter plot on the given axis."""
     sns.scatterplot(
@@ -285,13 +282,13 @@ def main():
     eval_steps_list = DEFAULT_EVAL_STEPS
     
     # get optimal policy for comparison
-    baseline_policy = get_optimal_policy()
+    optimal_policy = get_optimal_policy()
     
     # gridsearch
-    results = run_parameter_grid_search(thetas, eval_steps_list, baseline_policy)
+    results = run_parameter_grid_search(thetas, eval_steps_list, optimal_policy)
     
     # save rsults
-    df = save_final_results(results, thetas, eval_steps_list, baseline_policy)
+    df = save_final_results(results, thetas, eval_steps_list, optimal_policy)
     
     # generate LaTeX table
     generate_latex_table(results)

@@ -12,9 +12,28 @@ from generalized_policy_iteration.value_function_drawer import \
     ValueFunctionDrawer
 from p2.low_level_environment import LowLevelEnvironment
 from p2.low_level_policy_drawer import LowLevelPolicyDrawer
+import os
+import sys
+
+# save plots here
+OUTPUT_DIR = '3d_plots'
+
+# create output directory if it doesn't exist
+def setup_directories():
+    if not os.path.exists(OUTPUT_DIR):
+        try:
+            os.makedirs(OUTPUT_DIR, exist_ok=True)
+            print(f"Created directory: {OUTPUT_DIR}")
+        except Exception as e:
+            print(f"Error creating directory: {str(e)}")
+            sys.exit(1)
+    else:
+        print(f"Directory already exists: {OUTPUT_DIR}")
 
 if __name__ == '__main__':
-    
+        
+    setup_directories()
+
     # Get the map for the scenario
     airport_map, drawer_height = full_scenario()
     
@@ -49,10 +68,10 @@ if __name__ == '__main__':
         # Compute the solution
         v, pi = policy_solver.solve_policy()
 
-        policy_filename = f"policy_iteration_results_p_{p}.pdf"
+        policy_filename = os.path.join(OUTPUT_DIR, f"policy_iteration_results_p_{p}.pdf")
         policy_drawer.save_screenshot(policy_filename)
-        value_function_filename = f"value_function_iteration_results_p_{p}.pdf"
+        value_function_filename = os.path.join(OUTPUT_DIR, f"value_function_iteration_results_p_{p}.pdf")
         value_function_drawer.save_screenshot(value_function_filename)
         
         # Wait for a key press
-        value_function_drawer.wait_for_key_press()
+        #value_function_drawer.wait_for_key_press()

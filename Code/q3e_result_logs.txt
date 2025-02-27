@@ -1,160 +1,160 @@
 Parameters:
   Theta=1e+00, eval_steps=5
-  Time: 14.356s
+  Time: 14.270s
   Total evaluation sweeps: 323
   Outer policy iterations: 272
-  Similarity to baseline: 0.9953
+  Similarity to optimal policy: 0.9953
 --------------------------------------------------
 
 Parameters:
   Theta=1e+00, eval_steps=10
-  Time: 13.685s
+  Time: 13.440s
   Total evaluation sweeps: 329
   Outer policy iterations: 257
-  Similarity to baseline: 0.9288
+  Similarity to optimal policy: 0.9288
 --------------------------------------------------
 
 Parameters:
   Theta=1e+00, eval_steps=20
-  Time: 12.614s
+  Time: 12.277s
   Total evaluation sweeps: 325
   Outer policy iterations: 233
-  Similarity to baseline: 0.9449
+  Similarity to optimal policy: 0.9449
 --------------------------------------------------
 
 Parameters:
   Theta=1e+00, eval_steps=50
-  Time: 13.815s
+  Time: 13.398s
   Total evaluation sweeps: 367
   Outer policy iterations: 253
-  Similarity to baseline: 0.9858
+  Similarity to optimal policy: 0.9858
 --------------------------------------------------
 
 Parameters:
   Theta=1e+00, eval_steps=100
-  Time: 13.708s
+  Time: 13.384s
   Total evaluation sweeps: 367
   Outer policy iterations: 253
-  Similarity to baseline: 0.9858
+  Similarity to optimal policy: 0.9858
 --------------------------------------------------
 
 Parameters:
   Theta=1e-01, eval_steps=5
-  Time: 13.331s
+  Time: 12.980s
   Total evaluation sweeps: 323
   Outer policy iterations: 248
-  Similarity to baseline: 0.9953
+  Similarity to optimal policy: 0.9953
 --------------------------------------------------
 
 Parameters:
   Theta=1e-01, eval_steps=10
-  Time: 11.131s
+  Time: 10.759s
   Total evaluation sweeps: 329
   Outer policy iterations: 202
-  Similarity to baseline: 0.9288
+  Similarity to optimal policy: 0.9288
 --------------------------------------------------
 
 Parameters:
   Theta=1e-01, eval_steps=20
-  Time: 9.823s
+  Time: 9.504s
   Total evaluation sweeps: 325
   Outer policy iterations: 175
-  Similarity to baseline: 0.9430
+  Similarity to optimal policy: 0.9430
 --------------------------------------------------
 
 Parameters:
   Theta=1e-01, eval_steps=50
-  Time: 10.453s
+  Time: 10.238s
   Total evaluation sweeps: 391
   Outer policy iterations: 184
-  Similarity to baseline: 0.9972
+  Similarity to optimal policy: 0.9972
 --------------------------------------------------
 
 Parameters:
   Theta=1e-01, eval_steps=100
-  Time: 10.611s
+  Time: 10.370s
   Total evaluation sweeps: 398
   Outer policy iterations: 186
-  Similarity to baseline: 0.9972
+  Similarity to optimal policy: 0.9972
 --------------------------------------------------
 
 Parameters:
   Theta=1e-03, eval_steps=5
-  Time: 11.713s
+  Time: 11.515s
   Total evaluation sweeps: 323
   Outer policy iterations: 217
-  Similarity to baseline: 0.9953
+  Similarity to optimal policy: 0.9953
 --------------------------------------------------
 
 Parameters:
   Theta=1e-03, eval_steps=10
-  Time: 8.975s
+  Time: 8.886s
   Total evaluation sweeps: 329
   Outer policy iterations: 161
-  Similarity to baseline: 0.9288
+  Similarity to optimal policy: 0.9288
 --------------------------------------------------
 
 Parameters:
   Theta=1e-03, eval_steps=20
-  Time: 6.136s
+  Time: 6.071s
   Total evaluation sweeps: 325
   Outer policy iterations: 102
-  Similarity to baseline: 0.9430
+  Similarity to optimal policy: 0.9430
 --------------------------------------------------
 
 Parameters:
   Theta=1e-03, eval_steps=50
-  Time: 3.610s
+  Time: 3.526s
   Total evaluation sweeps: 462
   Outer policy iterations: 37
-  Similarity to baseline: 0.9972
+  Similarity to optimal policy: 0.9972
 --------------------------------------------------
 
 Parameters:
   Theta=1e-03, eval_steps=100
-  Time: 4.140s
+  Time: 4.072s
   Total evaluation sweeps: 630
   Outer policy iterations: 33
-  Similarity to baseline: 0.9981
+  Similarity to optimal policy: 0.9981
 --------------------------------------------------
 
 Parameters:
   Theta=1e-06, eval_steps=5
-  Time: 9.806s
+  Time: 9.547s
   Total evaluation sweeps: 323
   Outer policy iterations: 175
-  Similarity to baseline: 0.9953
+  Similarity to optimal policy: 0.9953
 --------------------------------------------------
 
 Parameters:
   Theta=1e-06, eval_steps=10
-  Time: 4.456s
+  Time: 4.398s
   Total evaluation sweeps: 329
   Outer policy iterations: 66
-  Similarity to baseline: 0.9288
+  Similarity to optimal policy: 0.9288
 --------------------------------------------------
 
 Parameters:
   Theta=1e-06, eval_steps=20
-  Time: 3.301s
+  Time: 3.291s
   Total evaluation sweeps: 442
   Outer policy iterations: 34
-  Similarity to baseline: 0.9953
+  Similarity to optimal policy: 0.9953
 --------------------------------------------------
 
 Parameters:
   Theta=1e-06, eval_steps=50
-  Time: 4.869s
+  Time: 4.801s
   Total evaluation sweeps: 843
   Outer policy iterations: 34
-  Similarity to baseline: 0.9972
+  Similarity to optimal policy: 0.9972
 --------------------------------------------------
 
 Parameters:
   Theta=1e-06, eval_steps=100
-  Time: 5.690s
+  Time: 5.657s
   Total evaluation sweeps: 1171
   Outer policy iterations: 26
-  Similarity to baseline: 0.9981
+  Similarity to optimal policy: 0.9981
 --------------------------------------------------
 
