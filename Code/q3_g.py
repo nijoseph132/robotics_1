@@ -27,6 +27,7 @@ def run_single(airport_map, drawer_height):
     airport_map_pi = copy.deepcopy(airport_map)
     airport_map_vi = copy.deepcopy(airport_map)
 
+    # ------Policy Iteration------
     environment_pi = LowLevelEnvironment(airport_map_pi, randomize_obstacles_flag=False)
     environment_pi.set_nominal_direction_probability(0.8)
     policy_solver = PolicyIterator(environment_pi)
@@ -44,14 +45,15 @@ def run_single(airport_map, drawer_height):
     pi_time = time.time() - start_time
 
     print("Policy Iteration Stats:")
-    print(f"  Evaluation iterations: {policy_solver._policy_eval_iterations}")
-    print(f"  Improvement iterations: {policy_solver._policy_improve_iterations}")
+    print(f"  Evaluation iterations: {policy_solver.get_total_evaluation_steps()}")
+    print(f"  Improvement iterations: {policy_solver.get_total_improvement_steps()}")
     print(f"  Total runtime: {pi_time:.3f} seconds")
 
     policy_drawer.save_screenshot("policy_iteration_policy_default.pdf")
     value_drawer.save_screenshot("policy_iteration_value_default.pdf")
+    #-----------------------------#
 
-    # =============== Value Iteration ===============
+    # ------Value Iteration------
     environment_vi = LowLevelEnvironment(airport_map_vi, randomize_obstacles_flag=False)
     environment_vi.set_nominal_direction_probability(0.8)
     value_solver = ValueIterator(environment_vi)
@@ -97,7 +99,7 @@ def run_multiple(airport_map, drawer_height, num_runs, randomize_flag):
             airport_map_pi = copy.deepcopy(airport_map)
             airport_map_vi = copy.deepcopy(airport_map)
 
-        # =============== Policy Iteration ===============
+        # ------Policy Iteration------
         environment_pi = LowLevelEnvironment(airport_map_pi, randomize_obstacles_flag=False)
         environment_pi.set_nominal_direction_probability(0.8)
         policy_solver = PolicyIterator(environment_pi)
@@ -114,13 +116,13 @@ def run_multiple(airport_map, drawer_height, num_runs, randomize_flag):
         pi_time = time.time() - start_time
 
         pi_times.append(pi_time)
-        pi_eval_iterations.append(policy_solver._policy_eval_iterations)
-        pi_improve_iterations.append(policy_solver._policy_improve_iterations)
+        pi_eval_iterations.append(policy_solver.get_total_evaluation_steps)
+        pi_improve_iterations.append(policy_solver.get_total_improvement_steps)
 
         policy_drawer.save_screenshot(f"policy_iteration_policy_run{run + 1}.pdf")
         value_drawer.save_screenshot(f"policy_iteration_value_run{run + 1}.pdf")
 
-        # =============== Value Iteration ===============
+        # ------Value Iteration------
         environment_vi = LowLevelEnvironment(airport_map_vi, randomize_obstacles_flag=False)
         environment_vi.set_nominal_direction_probability(0.8)
         value_solver = ValueIterator(environment_vi)
@@ -155,7 +157,7 @@ def run_multiple(airport_map, drawer_height, num_runs, randomize_flag):
           f"(Total= {avg_pi_total:.2f}), Time= {avg_pi_time:.3f}s")
     print(f"  Value Iteration: Avg Sweeps= {avg_vi_iter:.2f}, Time= {avg_vi_time:.3f}s")
 
-    # ---- Print LaTeX Table ----
+    # ----  LaTeX Table ----
     print("\n========== LaTeX Table of Average Results ==========")
     print(r"\begin{table}[htbp]")
     print(r"\centering")

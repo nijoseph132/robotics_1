@@ -1,0 +1,160 @@
+Parameters:
+  Theta=1e+00, eval_steps=5
+  Time: 14.356s
+  Total evaluation sweeps: 323
+  Outer policy iterations: 272
+  Similarity to baseline: 0.9953
+--------------------------------------------------
+
+Parameters:
+  Theta=1e+00, eval_steps=10
+  Time: 13.685s
+  Total evaluation sweeps: 329
+  Outer policy iterations: 257
+  Similarity to baseline: 0.9288
+--------------------------------------------------
+
+Parameters:
+  Theta=1e+00, eval_steps=20
+  Time: 12.614s
+  Total evaluation sweeps: 325
+  Outer policy iterations: 233
+  Similarity to baseline: 0.9449
+--------------------------------------------------
+
+Parameters:
+  Theta=1e+00, eval_steps=50
+  Time: 13.815s
+  Total evaluation sweeps: 367
+  Outer policy iterations: 253
+  Similarity to baseline: 0.9858
+--------------------------------------------------
+
+Parameters:
+  Theta=1e+00, eval_steps=100
+  Time: 13.708s
+  Total evaluation sweeps: 367
+  Outer policy iterations: 253
+  Similarity to baseline: 0.9858
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-01, eval_steps=5
+  Time: 13.331s
+  Total evaluation sweeps: 323
+  Outer policy iterations: 248
+  Similarity to baseline: 0.9953
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-01, eval_steps=10
+  Time: 11.131s
+  Total evaluation sweeps: 329
+  Outer policy iterations: 202
+  Similarity to baseline: 0.9288
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-01, eval_steps=20
+  Time: 9.823s
+  Total evaluation sweeps: 325
+  Outer policy iterations: 175
+  Similarity to baseline: 0.9430
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-01, eval_steps=50
+  Time: 10.453s
+  Total evaluation sweeps: 391
+  Outer policy iterations: 184
+  Similarity to baseline: 0.9972
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-01, eval_steps=100
+  Time: 10.611s
+  Total evaluation sweeps: 398
+  Outer policy iterations: 186
+  Similarity to baseline: 0.9972
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-03, eval_steps=5
+  Time: 11.713s
+  Total evaluation sweeps: 323
+  Outer policy iterations: 217
+  Similarity to baseline: 0.9953
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-03, eval_steps=10
+  Time: 8.975s
+  Total evaluation sweeps: 329
+  Outer policy iterations: 161
+  Similarity to baseline: 0.9288
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-03, eval_steps=20
+  Time: 6.136s
+  Total evaluation sweeps: 325
+  Outer policy iterations: 102
+  Similarity to baseline: 0.9430
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-03, eval_steps=50
+  Time: 3.610s
+  Total evaluation sweeps: 462
+  Outer policy iterations: 37
+  Similarity to baseline: 0.9972
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-03, eval_steps=100
+  Time: 4.140s
+  Total evaluation sweeps: 630
+  Outer policy iterations: 33
+  Similarity to baseline: 0.9981
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-06, eval_steps=5
+  Time: 9.806s
+  Total evaluation sweeps: 323
+  Outer policy iterations: 175
+  Similarity to baseline: 0.9953
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-06, eval_steps=10
+  Time: 4.456s
+  Total evaluation sweeps: 329
+  Outer policy iterations: 66
+  Similarity to baseline: 0.9288
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-06, eval_steps=20
+  Time: 3.301s
+  Total evaluation sweeps: 442
+  Outer policy iterations: 34
+  Similarity to baseline: 0.9953
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-06, eval_steps=50
+  Time: 4.869s
+  Total evaluation sweeps: 843
+  Outer policy iterations: 34
+  Similarity to baseline: 0.9972
+--------------------------------------------------
+
+Parameters:
+  Theta=1e-06, eval_steps=100
+  Time: 5.690s
+  Total evaluation sweeps: 1171
+  Outer policy iterations: 26
+  Similarity to baseline: 0.9981
+--------------------------------------------------
+

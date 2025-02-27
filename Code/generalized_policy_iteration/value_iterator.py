@@ -62,11 +62,14 @@ class ValueIterator(DynamicProgrammingBase):
                 for y in range(map_obj.height()):
                     if map_obj.cell(x, y).is_obstruction() or map_obj.cell(x, y).is_terminal():
                         continue
+
+                    # current state
+                    cell = (x, y)
                     # store the current value for comparison.
                     old_value = self._v.value(x, y)
                     best_value = float('-inf')
                     # loop over all available actions.
-                    for action in range(environment.available_actions().n):
+                    for action in environment.actions(cell):
                         s_primes, rewards, probs = environment.next_state_and_reward_distribution((x, y), action)
                         q_value = 0.0
                         # accumulate the expected reward for this action.
@@ -91,9 +94,11 @@ class ValueIterator(DynamicProgrammingBase):
             for y in range(map_obj.height()):
                 if map_obj.cell(x, y).is_obstruction() or map_obj.cell(x, y).is_terminal():
                     continue
+
+                cell = (x, y)
                 best_action = None
                 best_q_value = float('-inf')
-                for action in range(environment.available_actions().n):
+                for action in environment.actions(cell):
                     s_primes, rewards, probs = environment.next_state_and_reward_distribution((x, y), action)
                     q_value = 0.0
                     for i in range(len(probs)):

@@ -21,15 +21,21 @@ class PolicyIterator(DynamicProgrammingBase):
         self._max_policy_evaluation_steps_per_iteration = 100
         
         
-        # The maximum number of times the policy evaluation iteration
-        # is carried out.
+        # The maximum number of times the policy evaluation and improvement 
+        # outer loop is carried out
         self._max_policy_iteration_steps = 1000
         
-        # Add tracking variables
+        # tracking variables
         self._last_delta = float('inf')
+        # number of times policy iteration is run
         self._total_iterations = 0
-        self._total_value_function_evaluation_steps = 0
-        self._total_value_function_updates = 0
+        # number of times policy is improved
+        self._policy_improvement_steps = 0
+        # number of times policy is evaluated
+        self._policy_evaluation_steps = 0
+
+        # number of times state space is swept in policy evaluation
+        self._state_space_sweeps = 0
 
     # Perform policy evaluation for the current policy, and return
     # a copy of the state value function. Since this is a deep copy, you can modify it
@@ -60,9 +66,11 @@ class PolicyIterator(DynamicProgrammingBase):
             
             # Evaluate the policy
             self._evaluate_policy()
+            self._policy_evaluation_steps += 1
 
             # Improve the policy            
             policy_stable = self._improve_policy()
+            self._policy_improvement_steps += 1
             
             # Update the drawers if needed
             if self._policy_drawer is not None:
@@ -132,19 +140,18 @@ class PolicyIterator(DynamicProgrammingBase):
                         new_v = new_v + p[t] * (r[t] + self._gamma * self._v.value(sc[0], sc[1]))                        
                         
                     # Set the new value in the value function
-                    self._v.set_value(x, y, new_v)
-                    self._total_value_function_updates += 1
-                                        
+                    self._v.set_value(x, y, new_v)                                        
                     # Update the maximum deviation
                     delta = max(delta, abs(old_v-new_v))
  
             # Store the last delta value
             self._last_delta = delta
+
+            self._state_space_sweeps += 1
+
             
             # Increment counters
-            iteration += 1
-            self._total_value_function_evaluation_steps += 1
-            
+            iteration += 1            
             print(f'Finished policy evaluation iteration {iteration}')
             
             # Terminate the loop if the change was very small
@@ -178,43 +185,39 @@ class PolicyIterator(DynamicProgrammingBase):
                 if map.cell(x, y).is_obstruction() or map.cell(x, y).is_terminal():
                     continue
                 
-                # Define the current cell.
+                # current cell/state
                 cell = (x, y)
                 
-                # Retrieve the current action from the policy for this cell.
+                # get action from policy
                 old_action = self._pi.action(x, y)
                 
                 # Initialize variables for the best action and its Q-value.
                 best_action = None
                 best_q_value = float('-inf')
                 
-                # Iterate over all possible actions available in this state.
-                # This loop implements the greedy policy improvement, as described in the slides.
+                # iterate over all possible actions
                 for action in environment.actions(cell):
-                    # Obtain the next state and reward distribution for taking 'action' in 'cell'.
+                    # get next state and reward distribution
                     s_prime, r, p = environment.next_state_and_reward_distribution(cell, action)
                     
-                    # Compute the expected return (Q-value) for this action.
-                    # Q(s, a) = sum_{s'} P(s',r|s,a) * [r + gamma * V(s')]
+                    # compute q-value
                     q_value = 0
                     for i in range(len(p)):
-                        next_state_coords = s_prime[i].coords()  # Get coordinates for the next state.
+                        next_state_coords = s_prime[i].coords()
                         q_value += p[i] * (r[i] + self._gamma * self._v.value(next_state_coords[0], next_state_coords[1]))
                     
-                    # If this action has a higher Q-value than the best seen so far, record it.
+                    # if q-value is better than the best q-value, update best q-value and best action
                     if q_value > best_q_value:
                         best_q_value = q_value
                         best_action = action
-                
-                # If the best action is different from the current policy's action, update the policy.
-                # This is the core of the policy improvement theorem:
-                # A new policy that is greedy with respect to the current value function is an improvement.
+
+                # if the best action that we just found is different from the current policy's action, update the policy.
+                # the policy is therefore not stable, so we set policy_stable to false so that policy iteration can continue.
                 if best_action is not None and best_action != old_action:
                     self._pi.set_action(x, y, best_action)
-                    # Mark that we made a change to the policy (i.e., it is not yet stable).
                     policy_stable = False
-                
-        # Return True if the policy did not change at all (i.e., it is stable and optimal).
+        
+        # if this is true, policy is stable and we can stop, otherwise we need to continue
         return policy_stable
                     
                 
@@ -229,15 +232,17 @@ class PolicyIterator(DynamicProgrammingBase):
     def get_max_policy_iteration_steps(self):
         return self._max_policy_iteration_steps         
                 
-    # Add getter methods
     def get_last_delta(self):
         return self._last_delta
 
     def get_total_iterations(self):
         return self._total_iterations
 
-    def get_total_value_function_evaluation_steps(self):
-        return self._total_value_function_evaluation_steps
+    def get_total_evaluation_steps(self):
+        return self._policy_evaluation_steps
     
-    def get_total_value_function_updates(self):
-        return self._total_value_function_updates
+    def get_total_improvement_steps(self):
+        return self._policy_improvement_steps
+    
+    def get_total_state_space_sweeps(self):
+        return self._state_space_sweeps
