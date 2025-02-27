@@ -254,7 +254,6 @@ def create_analysis_plots(df):
     print(f"Saved scatter plot to {scatter_path_png}")
     
 def create_scatter_plot(df, x_col, y_col, x_label, y_label, title, palette, ax):
-    """Create a scatter plot on the given axis."""
     sns.scatterplot(
         data=df, x=x_col, y=y_col, hue='theta',
         palette=palette, ax=ax
