@@ -59,6 +59,7 @@ def run_single(airport_map, drawer_height):
         environment_pi = LowLevelEnvironment(airport_map_pi, randomize_obstacles_flag=False)
         environment_pi.set_nominal_direction_probability(0.8)
         policy_solver = PolicyIterator(environment_pi)
+        policy_solver.set_gamma(0.95)
         policy_solver.initialize()
         
         # Set policy and value from cached results
@@ -75,6 +76,7 @@ def run_single(airport_map, drawer_height):
         environment_vi = LowLevelEnvironment(airport_map_vi, randomize_obstacles_flag=False)
         environment_vi.set_nominal_direction_probability(0.8)
         value_solver = ValueIterator(environment_vi)
+        value_solver.set_gamma(0.95)
         value_solver.initialize()
         
         # Set policy and value from cached results
@@ -107,6 +109,7 @@ def run_single(airport_map, drawer_height):
         environment_pi = LowLevelEnvironment(airport_map_pi, randomize_obstacles_flag=False)
         environment_pi.set_nominal_direction_probability(0.8)
         policy_solver = PolicyIterator(environment_pi)
+        policy_solver.set_gamma(0.95)
         policy_solver.initialize()
 
         policy_drawer = LowLevelPolicyDrawer(policy_solver.policy(), drawer_height)
@@ -140,6 +143,7 @@ def run_single(airport_map, drawer_height):
         environment_vi = LowLevelEnvironment(airport_map_vi, randomize_obstacles_flag=False)
         environment_vi.set_nominal_direction_probability(0.8)
         value_solver = ValueIterator(environment_vi)
+        value_solver.set_gamma(0.95)
         value_solver.initialize()
 
         policy_drawer_vi = LowLevelPolicyDrawer(value_solver.policy(), drawer_height)
@@ -227,6 +231,7 @@ def run_multiple(airport_map, drawer_height, num_runs, randomize_flag):
             environment_pi = LowLevelEnvironment(airport_map_pi, randomize_obstacles_flag=False)
             environment_pi.set_nominal_direction_probability(0.8)
             policy_solver = PolicyIterator(environment_pi)
+            policy_solver.set_gamma(0.95)
             policy_solver.initialize()
             
             # Set policy and value from cached results
@@ -240,6 +245,7 @@ def run_multiple(airport_map, drawer_height, num_runs, randomize_flag):
             environment_vi = LowLevelEnvironment(airport_map_vi, randomize_obstacles_flag=False)
             environment_vi.set_nominal_direction_probability(0.8)
             value_solver = ValueIterator(environment_vi)
+            value_solver.set_gamma(0.95)
             value_solver.initialize()
             
             # Set policy and value from cached results
@@ -257,6 +263,7 @@ def run_multiple(airport_map, drawer_height, num_runs, randomize_flag):
             environment_pi = LowLevelEnvironment(airport_map_pi, randomize_obstacles_flag=False)
             environment_pi.set_nominal_direction_probability(0.8)
             policy_solver = PolicyIterator(environment_pi)
+            policy_solver.set_gamma(0.95)
             policy_solver.initialize()
 
             policy_drawer = LowLevelPolicyDrawer(policy_solver.policy(), drawer_height)
@@ -288,6 +295,7 @@ def run_multiple(airport_map, drawer_height, num_runs, randomize_flag):
             environment_vi = LowLevelEnvironment(airport_map_vi, randomize_obstacles_flag=False)
             environment_vi.set_nominal_direction_probability(0.8)
             value_solver = ValueIterator(environment_vi)
+            value_solver.set_gamma(0.95)
             value_solver.initialize()
 
             policy_drawer_vi = LowLevelPolicyDrawer(value_solver.policy(), drawer_height)

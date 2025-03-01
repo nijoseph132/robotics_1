@@ -57,6 +57,7 @@ if __name__ == '__main__':
 
         # Set up initial state
         policy_solver.initialize()
+        policy_solver.set_gamma(0.975)
             
         # Bind the drawer with the solver
         policy_drawer = LowLevelPolicyDrawer(policy_solver.policy(), drawer_height)
